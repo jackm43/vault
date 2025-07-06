@@ -1,0 +1,12 @@
+---
+- hosts: all
+  tasks:
+    - name: Install 1Password CLI
+      package:
+        name: op
+        state: present
+    - name: Configure vault token helper
+      lineinfile:
+        path: ~/.bashrc
+        line: 'export VAULT_TOKEN_HELPER=op-vault'
+        create: yes
