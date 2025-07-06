@@ -1,0 +1,22 @@
+---
+- name: Install 1Password CLI
+  ansible.builtin.package:
+    name: op
+    state: present
+
+- name: Install Hashicorp Vault CLI
+  ansible.builtin.package:
+    name: vault
+    state: present
+
+- name: Initialize 1Password shell plugin for Vault
+  ansible.builtin.command: op plugin init hashicorp-vault
+  args:
+    creates: ~/.config/op/plugins/hashicorp-vault
+  become: false
+
+- name: Copy vault_sync script
+  ansible.builtin.copy:
+    src: ../../../../scripts/vault_sync.sh
+    dest: /usr/local/bin/vault_sync.sh
+    mode: '0755'
