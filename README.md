@@ -14,3 +14,4 @@ This repository contains example notes for integrating HashiCorp Vault with 1Pas
 - [Configuration](docs/configuration.md)
 - [Test Cases](docs/testcases.md)
 - [Ansible Playbook](docs/playbook.yml)
+- [Marketplace Clients](mcp_marketplace/README.md)
