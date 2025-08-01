@@ -39,8 +39,10 @@ These abstractions are shared between the policy scripts to keep the logic consi
 `policy_models.py` introduces generic dataclasses that describe policy rules and assurance requirements. They can be used to validate Okta policies or to model new ones before deployment.
 
 - `PolicyConditionModel` – represents a single condition such as a device or zone restriction and exposes a `test` method.
-- `PolicyRuleModel` – groups conditions and the resulting action into a rule object.
+- `PolicyRuleModel` – groups conditions, a resulting action, and the user interaction `steps` into a rule object.
+- `AuthenticationPolicyModel` – collection of rules that can be evaluated for a given user context.
+- `UserContext` – minimal user information (username and groups) used when evaluating sample policies.
 - `AssuranceRequirement` – a collection of callable tests that must succeed for a rule.
 - `AssuranceLevel` – links a descriptive name with its assurance requirements.
 
-These abstractions let you develop testable policy designs and integrate assurance levels directly into the flowcharting tools.
+These abstractions let you develop testable policy designs and integrate assurance levels directly into the flowcharting tools or standalone unit tests.

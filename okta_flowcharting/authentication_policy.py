@@ -6,7 +6,7 @@ import schemdraw
 from schemdraw import flow
 from okta.client import Client as OktaClient
 
-from okta_data import (
+from .okta_data import (
     Credentials,
     OktaCache,
     PolicyBundle,

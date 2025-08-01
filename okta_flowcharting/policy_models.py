@@ -29,6 +29,7 @@ class PolicyRuleModel:
     name: str
     conditions: List[PolicyConditionModel] = field(default_factory=list)
     action: str = ""
+    steps: List[str] = field(default_factory=list)
 
     def is_compliant(self, requirement: "AssuranceRequirement") -> bool:
         """Check if this rule satisfies an assurance requirement."""
@@ -50,3 +51,27 @@ class AssuranceLevel:
 
     name: str
     requirement: AssuranceRequirement
+
+
+@dataclass
+class AuthenticationPolicyModel:
+    """Collection of rules representing a complete policy."""
+
+    name: str
+    rules: List[PolicyRuleModel] = field(default_factory=list)
+    default_action: str = "DENY"
+
+    def evaluate(self, context: Any) -> List[str]:
+        """Evaluate the policy and return the user's journey steps."""
+        for rule in self.rules:
+            if all(cond.test(context) for cond in rule.conditions):
+                return rule.steps + [rule.action]
+        return [self.default_action]
+
+
+@dataclass
+class UserContext:
+    """Simple user representation for testing policy flows."""
+
+    username: str
+    groups: List[str] = field(default_factory=list)
